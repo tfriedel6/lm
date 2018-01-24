@@ -2,7 +2,8 @@ package lm
 
 import (
 	"fmt"
-	"github.com/void6/math32"
+
+	"github.com/barnex/fmath"
 )
 
 type Mat3x3 [9]float32
@@ -36,8 +37,8 @@ func Mat3x3Scale(v Vec2) Mat3x3 {
 }
 
 func Mat3x3Rotate(radians float32) Mat3x3 {
-	c := math32.Cos(radians)
-	s := math32.Sin(radians)
+	c := fmath.Cos(radians)
+	s := fmath.Sin(radians)
 	return Mat3x3{
 		s, -c, 0,
 		c, s, 0,

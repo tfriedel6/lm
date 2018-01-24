@@ -2,7 +2,8 @@ package lm
 
 import (
 	"fmt"
-	"github.com/void6/math32"
+
+	"github.com/barnex/fmath"
 )
 
 type Mat4x4 [16]float32
@@ -41,8 +42,8 @@ func Mat4x4Scale(v Vec3) Mat4x4 {
 
 func Mat4x4Rotate(axis Vec3, radians float32) Mat4x4 {
 	x, y, z := axis.Norm().XYZ()
-	c := math32.Cos(radians)
-	s := math32.Sin(radians)
+	c := fmath.Cos(radians)
+	s := fmath.Sin(radians)
 
 	return Mat4x4{
 		x*x*(1-c) + c, y*x*(1-c) + z*s, x*z*(1-c) - y*s, 0,
@@ -74,7 +75,7 @@ func Mat4x4Frustum(left, right, bottom, top, zNear, zFar float32) Mat4x4 {
 }
 
 func Mat4x4Perspective(fovY, aspect, zNear, zFar float32) Mat4x4 {
-	f := float32(1.0 / math32.Tan(fovY/2.0))
+	f := float32(1.0 / fmath.Tan(fovY/2.0))
 	d := zNear - zFar
 	return Mat4x4{
 		f / aspect, 0, 0, 0,
@@ -124,17 +125,17 @@ func (m Mat4x4) Invert() Mat4x4 {
 
 	return Mat4x4{
 		(m[5]*c[5] - m[6]*c[4] + m[7]*c[3]) * identity,
-        (-m[1]*c[5] + m[2]*c[4] - m[3]*c[3]) * identity,
-        (m[13]*s[5] - m[14]*s[4] + m[15]*s[3]) * identity,
-        (-m[9]*s[5] + m[10]*s[4] - m[11]*s[3]) * identity,
+		(-m[1]*c[5] + m[2]*c[4] - m[3]*c[3]) * identity,
+		(m[13]*s[5] - m[14]*s[4] + m[15]*s[3]) * identity,
+		(-m[9]*s[5] + m[10]*s[4] - m[11]*s[3]) * identity,
 		(-m[4]*c[5] + m[6]*c[2] - m[7]*c[1]) * identity,
-        (m[0]*c[5] - m[2]*c[2] + m[3]*c[1]) * identity,
-        (-m[12]*s[5] + m[14]*s[2] - m[15]*s[1]) * identity,
-        (m[8]*s[5] - m[10]*s[2] + m[11]*s[1]) * identity,
+		(m[0]*c[5] - m[2]*c[2] + m[3]*c[1]) * identity,
+		(-m[12]*s[5] + m[14]*s[2] - m[15]*s[1]) * identity,
+		(m[8]*s[5] - m[10]*s[2] + m[11]*s[1]) * identity,
 		(m[4]*c[4] - m[5]*c[2] + m[7]*c[0]) * identity,
-        (-m[0]*c[4] + m[1]*c[2] - m[3]*c[0]) * identity,
-        (m[12]*s[4] - m[13]*s[2] + m[15]*s[0]) * identity,
-        (-m[8]*s[4] + m[9]*s[2] - m[11]*s[0]) * identity,
+		(-m[0]*c[4] + m[1]*c[2] - m[3]*c[0]) * identity,
+		(m[12]*s[4] - m[13]*s[2] + m[15]*s[0]) * identity,
+		(-m[8]*s[4] + m[9]*s[2] - m[11]*s[0]) * identity,
 		(-m[4]*c[3] + m[5]*c[1] - m[6]*c[0]) * identity,
 		(m[0]*c[3] - m[1]*c[1] + m[2]*c[0]) * identity,
 		(-m[12]*s[3] + m[13]*s[1] - m[14]*s[0]) * identity,

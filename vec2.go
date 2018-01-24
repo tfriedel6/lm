@@ -2,7 +2,8 @@ package lm
 
 import (
 	"fmt"
-	"github.com/void6/math32"
+
+	"github.com/barnex/fmath"
 )
 
 type Vec2 [2]float32
@@ -65,7 +66,7 @@ func (v1 Vec2) Dot(v2 Vec2) float32 {
 }
 
 func (v Vec2) Len() float32 {
-	return math32.Sqrt(v[0]*v[0] + v[1]*v[1])
+	return fmath.Sqrt(v[0]*v[0] + v[1]*v[1])
 }
 
 func (v Vec2) LenSqr() float32 {
@@ -77,9 +78,9 @@ func (v Vec2) Norm() Vec2 {
 }
 
 func (v Vec2) Atan2() float32 {
-	return math32.Atan2(v[1], v[0])
+	return fmath.Atan2(v[1], v[0])
 }
 
 func (v Vec2) AngleTo(v2 Vec2) float32 {
-	return math32.Acos(v.Norm().Dot(v2.Norm()))
+	return fmath.Acos(v.Norm().Dot(v2.Norm()))
 }

@@ -2,7 +2,8 @@ package lm
 
 import (
 	"fmt"
-	"github.com/void6/math32"
+
+	"github.com/barnex/fmath"
 )
 
 type Quat [4]float32
@@ -18,14 +19,29 @@ func (q Quat) XYZVec() Vec3 {
 func QuatAxisRotation(axis Vec3, angle float32) Quat {
 	var d = 1 / axis.Len()
 	halfAngle := angle / 2.0
-	s := math32.Sin(halfAngle)
-	c := math32.Cos(halfAngle)
+	s := fmath.Sin(halfAngle)
+	c := fmath.Cos(halfAngle)
 	return Quat{s * axis[0] * d, s * axis[1] * d, s * axis[2] * d, c}
 }
 
 func QuatIdentity() Quat {
 	return Quat{0, 0, 0, 1}
 }
+
+/*
+func QuatPitchYawRoll(pitch, yaw, roll float32) Quat {
+	yawS, yawC := fmath.Sincos(yaw * 0.5)
+	pitchS, pitchC := fmath.Sincos(pitch * 0.5)
+	rollS, rollC := fmath.Sincos(roll * 0.5)
+
+	var q Quat
+	q[0] = pitchS * yawC * rollC - pitchC * yawS * rollS
+	q[1] = pitchC * yawS * rollC + pitchS * yawC * rollS
+	q[2] = pitchC * yawC * rollS - pitchS * yawS * rollC
+	q[3] = pitchC * yawC * rollC + pitchS * yawS * rollS
+	return q
+}
+*/
 
 func (q1 Quat) MulQuat(q2 Quat) Quat {
 	return Quat{
@@ -39,14 +55,9 @@ func (q Quat) Conjugate() Quat {
 	return Quat{-q[0], -q[1], -q[2], q[3]}
 }
 
-/*
-func (q Quaternion) YawPitchRoll() (yaw, pitch, roll float32) {
-	yaw = float32(math.Atan2(float64(2*(q.W*q.X+q.Y*q.Z)), float64(1-2*(q.X*q.X+q.Y*q.Y))))
-	pitch = float32(math.Asin(float64(2 * (q.W*q.Y - q.Z*q.X))))
-	roll = float32(math.Atan2(float64(2*(q.W*q.Z+q.X*q.Y)), float64(1-2*(q.Y*q.Y+q.Z*q.Z))))
-	return
+func (q Quat) AngleAround(axis Vec3) Quat {
+	return Quat{-q[0], -q[1], -q[2], q[3]}
 }
-*/
 
 func (q Quat) Mat4x4() Mat4x4 {
 	x, y, z, w := q[0], q[1], q[2], q[3]
