@@ -37,11 +37,10 @@ func Mat3x3Scale(v Vec2) Mat3x3 {
 }
 
 func Mat3x3Rotate(radians float32) Mat3x3 {
-	c := fmath.Cos(radians)
-	s := fmath.Sin(radians)
+	s, c := fmath.Sincos(radians)
 	return Mat3x3{
-		s, -c, 0,
 		c, s, 0,
+		-s, c, 0,
 		0, 0, 1}
 }
 

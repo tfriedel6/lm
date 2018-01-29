@@ -48,9 +48,9 @@ func (v Vec2) MulF(f float32) Vec2 {
 
 func (v Vec2) MulMat3x3(m Mat3x3) (Vec2, float32) {
 	return Vec2{
-			m[0]*v[0] + m[1]*v[1] + m[2],
-			m[3]*v[0] + m[4]*v[1] + m[5]},
-		m[6]*v[0] + m[7]*v[1] + m[8]
+			m[0]*v[0] + m[3]*v[1] + m[6],
+			m[1]*v[0] + m[4]*v[1] + m[7]},
+		m[2]*v[0] + m[5]*v[1] + m[8]
 }
 
 func (v1 Vec2) Div(v2 Vec2) Vec2 {
