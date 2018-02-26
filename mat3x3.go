@@ -57,42 +57,17 @@ func (m1 Mat3x3) Mul(m2 Mat3x3) Mat3x3 {
 		m1[6]*m2[2] + m1[7]*m2[5] + m1[8]*m2[8]}
 }
 
-/*
 func (m Mat3x3) Invert() Mat3x3 {
-	var s, c [6]float32
-	s[0] = m[0]*m[5] - m[4]*m[1]
-	s[1] = m[0]*m[6] - m[4]*m[2]
-	s[2] = m[0]*m[7] - m[4]*m[3]
-	s[3] = m[1]*m[6] - m[5]*m[2]
-	s[4] = m[1]*m[7] - m[5]*m[3]
-	s[5] = m[2]*m[7] - m[6]*m[3]
-
-	c[0] = m[8]*m[13] - m[12]*m[9]
-	c[1] = m[8]*m[14] - m[12]*m[10]
-	c[2] = m[8]*m[15] - m[12]*m[11]
-	c[3] = m[9]*m[14] - m[13]*m[10]
-	c[4] = m[9]*m[15] - m[13]*m[11]
-	c[5] = m[10]*m[15] - m[14]*m[11]
-
-	// assumes it is invertible
-	var identity float32 = 1.0 / (s[0]*c[5] - s[1]*c[4] + s[2]*c[3] + s[3]*c[2] - s[4]*c[1] + s[5]*c[0])
+	var identity float32 = 1.0 / (m[0]*m[4]*m[8] + m[3]*m[7]*m[2] + m[6]*m[1]*m[5] - m[6]*m[4]*m[2] - m[3]*m[1]*m[8] - m[0]*m[7]*m[5])
 
 	return Mat3x3{
-		(m[5]*c[5] - m[6]*c[4] + m[7]*c[3]) * identity,
-		(-m[4]*c[5] + m[6]*c[2] - m[7]*c[1]) * identity,
-		(m[4]*c[4] - m[5]*c[2] + m[7]*c[0]) * identity,
-		(-m[4]*c[3] + m[5]*c[1] - m[6]*c[0]) * identity,
-		(-m[1]*c[5] + m[2]*c[4] - m[3]*c[3]) * identity,
-		(m[0]*c[5] - m[2]*c[2] + m[3]*c[1]) * identity,
-		(-m[0]*c[4] + m[1]*c[2] - m[3]*c[0]) * identity,
-		(m[0]*c[3] - m[1]*c[1] + m[2]*c[0]) * identity,
-		(m[13]*s[5] - m[14]*s[4] + m[15]*s[3]) * identity,
-		(-m[12]*s[5] + m[14]*s[2] - m[15]*s[1]) * identity,
-		(m[12]*s[4] - m[13]*s[2] + m[15]*s[0]) * identity,
-		(-m[12]*s[3] + m[13]*s[1] - m[14]*s[0]) * identity,
-		(-m[9]*s[5] + m[10]*s[4] - m[11]*s[3]) * identity,
-		(m[8]*s[5] - m[10]*s[2] + m[11]*s[1]) * identity,
-		(-m[8]*s[4] + m[9]*s[2] - m[11]*s[0]) * identity,
-		(m[8]*s[3] - m[9]*s[1] + m[10]*s[0]) * identity}
+		(m[4]*m[8] - m[5]*m[7]) * identity,
+		(m[2]*m[7] - m[1]*m[8]) * identity,
+		(m[1]*m[5] - m[2]*m[4]) * identity,
+		(m[5]*m[6] - m[3]*m[8]) * identity,
+		(m[0]*m[8] - m[2]*m[6]) * identity,
+		(m[2]*m[3] - m[0]*m[5]) * identity,
+		(m[3]*m[7] - m[4]*m[6]) * identity,
+		(m[1]*m[6] - m[0]*m[7]) * identity,
+		(m[0]*m[4] - m[1]*m[3]) * identity}
 }
-*/
